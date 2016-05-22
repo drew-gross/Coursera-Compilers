@@ -15,21 +15,26 @@ void yyerror(const char *s);
     int int_literal;
     float float_literal;
     char* string_literal;
+    bool bool_literal;
 }
 
 %token <int_literal> INT
 %token <float_literal> FLOAT
 %token <string_literal> STRING
+%token <bool_literal> BOOL
+%token CLASS
 
 %%
 
 cool:
     cool INT { cout << "bison found int: " << $2 << endl; }
+    | cool BOOL { cout << "bison found bool: " << $2 << endl; }
     | cool FLOAT { cout << "bison found float: " << $2 << endl; }
     | cool STRING { cout << "bison found str: " << $2 << endl; }
     | INT { cout << "bison found int: " << $1 << endl; }
     | FLOAT { cout << "bison found float: " << $1 << endl; }
     | STRING { cout << "bison found str: " << $1 << endl; }
+    | BOOL { cout << "bison found bool: " << $1 << endl; }
     ;
 
 %%
@@ -47,6 +52,7 @@ int main(int, char**) {
     do {
         yyparse();
     } while (!feof(yyin));
+    return 0;
 }
 
 void yyerror(const char *s) {

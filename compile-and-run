@@ -1,0 +1,1 @@
+bison -d cool.y && flex cool.flex && g++ lex.yy.c cool.tab.c -ll -o my-lexer && ./my-lexer
